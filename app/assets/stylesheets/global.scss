@@ -30,6 +30,16 @@ html, body {
   background-color: var(--bs-light);
 }
 
+button {
+  box-shadow: none;
+  outline: none;
+}
+
+.btn-close:focus {
+  outline: none;
+  box-shadow: none;
+}
+
 .navbar {
   --bs-navbar-padding-y: 12px;
   --bs-navbar-brand-padding-y: 0;

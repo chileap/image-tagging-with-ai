@@ -23,4 +23,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :images, dependent: :destroy
+  acts_as_tagger
 end
