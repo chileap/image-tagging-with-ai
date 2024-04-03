@@ -52,15 +52,22 @@ group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
   gem "dotenv"
   gem "pry"
+  gem 'rspec-rails', '~> 6.1.0'
+  gem 'factory_bot_rails'
+  gem 'faker'
+  gem 'database_cleaner'
+  gem 'shoulda-matchers'
+  gem 'capybara'
+  gem 'simplecov', require: false
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
-
-  # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
-  # gem "rack-mini-profiler"
-
-  # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
-  # gem "spring"
+  gem "listen", ">= 3.0.5", "< 3.2"
 end
+
+# user authentication
+gem "devise", "~> 4.9"
+
+gem "simple_form", "~> 5.3"
