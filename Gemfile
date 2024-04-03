@@ -52,6 +52,12 @@ group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
   gem "dotenv"
   gem "pry"
+  gem 'rspec-rails', '~> 6.1.0'
+  gem 'factory_bot_rails'
+  gem 'faker'
+  gem 'database_cleaner'
+  gem 'shoulda-matchers'
+  gem 'simplecov', require: false
 end
 
 group :development do
@@ -64,3 +70,8 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
 end
+
+# user authentication
+gem "devise", "~> 4.9"
+
+gem "simple_form", "~> 5.3"
