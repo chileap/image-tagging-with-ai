@@ -20,6 +20,7 @@
 class Image < ApplicationRecord
   include ImageUploader::Attachment.new(:file)
   belongs_to :user
+  acts_as_taggable_on :tags
 
   validates :title, presence: true
   validates :file_data, presence: true
