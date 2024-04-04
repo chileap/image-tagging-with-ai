@@ -1,0 +1,20 @@
+.btn-add {
+  box-shadow: 0px 0px 5px 0px #0000001A;
+  background-color: white;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-actions {
+  box-shadow: 0px 0px 5px 0px #00000059;
+  background: #FFFFFF;
+  border-radius: 8px;
+  border: 0;
+}
+
+.btn-actions:focus {
+  border: 0;
+}

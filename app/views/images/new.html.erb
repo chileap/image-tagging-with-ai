@@ -1,9 +1,3 @@
-<h1>New image</h1>
-
-<%= render "form", image: @image %>
-
-<br>
-
-<div>
-  <%= link_to "Back to images", images_path %>
-</div>
+<%= turbo_frame_tag "modal" do %>
+  <%= render_modal title: "New Image", body: "/images/new" %>
+<% end %>

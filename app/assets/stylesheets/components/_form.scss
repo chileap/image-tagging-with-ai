@@ -1,0 +1,48 @@
+@import 'dropzone/dist/dropzone';
+.dropzone {
+  background-color: #F9F9F980;
+  padding: 20px;
+  border-radius: 8px;
+  border: 0;
+}
+
+.dropzone-msg {
+  border: 2px dashed #33333380;
+  font-size: 1.5rem;
+  color: #333;
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: 300;
+  padding: 40px 50px;
+}
+
+.dropzone-msg-icon {
+  font-size: 64px;
+}
+
+.dz-max-files-reached {
+  pointer-events: none;
+  cursor: default;
+}
+
+.dz-progress {
+  display: none;
+}
+
+.dz-remove {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.dropzone{
+  .dz-preview{
+    .dz-image{
+      img{
+        height: 120px;
+        width:120px;
+        object-fit: cover;
+      }
+    }
+  }
+}
+

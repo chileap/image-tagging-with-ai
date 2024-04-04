@@ -1,8 +1,43 @@
-<%= render @image %>
+<div class="p-5">
 
-<div>
-  <%= link_to "Edit this image", edit_image_path(@image) %> |
-  <%= link_to "Back to images", images_path %>
+  <div class="flex flex-row">
+    <%= link_to images_path, class: "fs-2 fw-light" do %>
+      <span>
+        Images / <%= @image.title %>
+      </span>
+    <% end %>
+  </div>
 
-  <%= button_to "Destroy this image", @image, method: :delete %>
+  <div class="d-flex flex-row mt-5 gap-5">
+    <div class="image-wrapper">
+      <%= image_tag @image.file_url, class: "w-fluid" %>
+    </div>
+    <div class="d-flex flex-column">
+      <div class="d-flex flex-column gap-3">
+        <div class="d-flex flex-row gap-3">
+          <h2><%= @image.title %></h2>
+        </div>
+        <div class="d-flex flex-row gap-3">
+          <span><%= @image.image_size %></span>
+        </div>
+
+        <div class="d-flex flex-row gap-3">
+          <%= link_to 'Edit', edit_image_path(@image), class: "btn btn-actions" %>
+          <%= link_to image_path(@image), data: { turbo_confirm: "Are you sure?", turbo_method: 'delete' }, class: "btn btn-actions gap-2 d-flex justify-content-center align-items-center" do %>
+            <i class="fa-solid fa-trash-alt"></i>
+            Delete
+          <% end %>
+        </div>
+
+        <div class="d-flex flex-column gap-3">
+          <span class="fw-light">Tags:</span>
+          <div class="d-flex flex-row gap-3">
+            <% @image.tags.each do |tag| %>
+              <span class="badge bg-dark"><%= tag.name %></span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

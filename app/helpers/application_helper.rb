@@ -11,4 +11,8 @@ module ApplicationHelper
   def active_class(link_path)
     current_page?(link_path) ? "active" : ""
   end
+
+  def render_modal(title: "", body: "", footer: "")
+    render(partial: '/partials/modal', locals: { title: title, body: body, footer: footer })
+  end
 end

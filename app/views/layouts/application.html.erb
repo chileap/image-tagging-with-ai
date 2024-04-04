@@ -12,9 +12,10 @@
 
   <body>
     <%= render "shared/navbar" %>
-    <main class="m-5 bg-white min-vh-100">
+    <main class="m-5 bg-white min-vh-100 rounded-3">
       <div class="d-flex flex-column">
         <%= render "shared/flash_messages" %>
+        <%= turbo_frame_tag "modal" %>
         <%= yield %>
       </div>
     </main>
