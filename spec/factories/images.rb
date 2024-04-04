@@ -19,6 +19,8 @@
 #
 FactoryBot.define do
   factory :image do
-    
+    title { "MyString" }
+    file { fixture_file_upload(Rails.root.join('spec', 'fixtures', 'files', 'image.jpg'), 'image/jpg')}
+    user
   end
 end

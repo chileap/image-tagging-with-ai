@@ -78,3 +78,6 @@ gem "shrine", "~> 3.5"
 gem "aws-sdk-s3", "~> 1.146"
 
 gem "acts-as-taggable-on", "~> 10.0"
+
+gem "ransack"
+gem "kaminari"

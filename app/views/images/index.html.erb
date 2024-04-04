@@ -1,0 +1,82 @@
+<div class="pt-5 px-5 pb-3">
+  <div class="d-flex flex-row gap-3">
+    <h1 class="text-center fw-light">Images</h1>
+    <div class="d-flex justify-content-end align-items-center">
+      <%= link_to new_image_path, data: { turbo_action: 'replace', turbo_frame: 'modal' }, class: "btn btn-add rounded-circle" do %>
+        <i class="fa-solid fa-plus"></i>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<% if @images.present? %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">
+          <%= sort_link @q, :title, hide_indicator: true do %>
+            <span class="d-flex align-items-center gap-3 justify-content-center fw-bold">
+              Name
+              <% if @q.sorts.first.dir == "asc" %>
+                <i class="fa-solid fa-chevron-up"></i>
+              <% elsif @q.sorts.first.dir == "desc" %>
+                <i class="fa-solid fa-chevron-down"></i>
+              <% end %>
+            </span>
+          <% end %>
+        </th>
+        <th scope="col">Tags</th>
+        <th scope="col" class="text-center">Total Tags</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @images.each do |image| %>
+        <tr>
+          <td>
+            <div class="d-flex flex-row justify-content-center align-items-center gap-3">
+              <%= image_tag image.file_url, class: "image-file" %>
+              <div class="d-flex flex-column justify-content-between">
+                <%= image.title %>
+                <span class="fw-light"><%= image.image_size %></span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <% image.tags.each do |tag| %>
+              <span class="badge bg-dark"><%= tag.name %></span>
+            <% end %>
+          </td>
+          <td class="text-center"><%= image.tags.count %></td>
+          <td class="text-center">
+            <div class="dropdown">
+              <button class="btn btn-actions" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="fw-light me-2">Actions</span>
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <%= link_to image_path(image), class: "dropdown-item" do %>
+                  View
+                <% end %>
+                <%= link_to edit_image_path(image), data: { turbo_action: 'replace', turbo_frame: 'modal' }, class: "dropdown-item" do %>
+                  Edit
+                <% end %>
+                <%= link_to image_path(image), data: { turbo_confirm: "Are you sure?", turbo_method: 'delete' }, class: "dropdown-item" do %>
+                  Delete
+                <% end %>
+              </div>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="d-flex justify-content-center align-items-center py-5">
+    <%= paginate @images %>
+  </div>
+<% else %>
+  <div class="d-flex justify-content-center align-items-center py-5">
+    <span>No images found</span>
+  </div>
+<% end %>

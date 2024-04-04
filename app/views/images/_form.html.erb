@@ -1,0 +1,46 @@
+<%= simple_form_for(@image) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.input :title, autofocus: true, placeholder: "Title" %>
+
+    <div class="mb-6">
+      <%= f.label :file, 'Image', class: 'form-label'%>
+      <div
+        class="dropzone dropzone-default dz-clickable"
+        data-controller="dropzone"
+        data-dropzone-method="<%= f.object.new_record? ? 'post' : 'put' %>"
+      >
+        <%= f.file_field :file,
+          direct_upload: true,
+          data: {
+            target: 'dropzone.input',
+            "dropzone-method": f.object.new_record? ? 'post' : 'put',
+            "direct-upload-url": "#{ f.object.new_record? ? '/images' : '/images/' + @image.id }",
+          },
+          value: f.object.file_url,
+          filename: f.object.filename,
+          filesize: f.object.filesize
+        %>
+        <div class="dropzone-msg dz-message needsclick text-gray-600">
+          <div class="d-flex flex-wrap justify-content-center align-items-center gap-3">
+            <div class="d-flex flex-column gap-2">
+              <h3 class="dropzone-msg-title fw-light">Drop an image here or</h3>
+              <span class="dropzone-msg-desc text-sm text-decoration-underline pe-auto">
+                Browse from your computer
+              </span>
+            </div>
+            <div class="d-flex">
+              <i class="dropzone-msg-icon fas fa-image"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions d-flex justify-content-end mt-4">
+    <%= f.button :submit, 'Upload', class: "btn btn-dark" %>
+  </div>
+<% end %>

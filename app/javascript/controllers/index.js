@@ -5,4 +5,8 @@
 import { application } from "./application"
 
 import HelloController from "./hello_controller"
+import ModalController from "./modal_controller"
+import DropzoneController from "./dropzone_controller"
 application.register("hello", HelloController)
+application.register("modal", ModalController)
+application.register("dropzone", DropzoneController)

@@ -25,9 +25,34 @@
   --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
 }
 
+.modal-header {
+  border-bottom: 0;
+}
+
 html, body {
+  font-family: 'Inter', sans-serif;
   min-height: 100vh;
   background-color: var(--bs-light);
+  color: #333;
+}
+
+button {
+  box-shadow: none;
+  outline: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 0;
+}
+
+a {
+  color: #333;
+  text-decoration: none;
+}
+
+.btn-close:focus {
+  outline: none;
+  box-shadow: none;
 }
 
 .navbar {
@@ -54,4 +79,23 @@ html, body {
 .navbar-toggler:focus {
   outline: none;
   box-shadow: none;
+}
+
+.image-file {
+  width: fit-content;
+  height: 75px;
+  border-radius: 8px;
+}
+
+.image-wrapper {
+  width: 350px;
+  max-width: 350px;
+  height: 350px;
+
+  img {
+    width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+  }
 }

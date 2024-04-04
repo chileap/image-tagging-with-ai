@@ -1,0 +1,20 @@
+<%
+  title ||= "Modal"
+  body ||= ""
+  footer ||= ""
+%>
+<div class="modal fade" tabindex="-1" data-controller="modal" data-current-controller="<%= controller_name %>">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <%= tag.div class: "modal-body" do %>
+        <%= render body %>
+      <% end if body.present? %>
+      <%= tag.div class: "modal-footer" do %>
+        <%= render footer %>
+      <% end if footer.present? %>
+    </div>
+  </div>
+</div>
