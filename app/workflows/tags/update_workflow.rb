@@ -14,11 +14,12 @@ class Tags::UpdateWorkflow
       if current_user.tag(@image, with: image_tagging, on: :tags)
         @tag = current_user.owned_tags.find_by(name: tag_params[:name])
       else
-        Rails.logger.error("There are something wrong")
-        return false
+        @tag = current_user.owned_tags.new(name: tag_params[:name])
+        @tag.save
       end
     else
       @tag.update(name: tag_params[:name])
     end
+    @tag
   end
 end

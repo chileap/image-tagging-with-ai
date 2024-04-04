@@ -4,7 +4,7 @@ class TagsController < ApplicationController
   # GET /tags or /tags.json
   def index
     @sort = params[:sort] == "asc" ? "desc" : "asc"
-    @tags = current_user.all_tags.order("name #{@sort}").page(params[:page]).per(10)
+    @tags = ActsAsTaggableOn::Tag.named_like(params[:name] || '').order(name: @sort).page(params[:page]).per(10)
   end
 
   # GET /tags/1 or /tags/1.json
@@ -29,7 +29,8 @@ class TagsController < ApplicationController
 
   # POST /tags or /tags.json
   def create
-    if Tags::CreateWorkflow.new(tag_params, current_user).call
+    @tag = Tags::CreateWorkflow.new(tag_params, current_user).call
+    if @tag.errors.empty?
       respond_to do |format|
         format.html { redirect_to tags_url, notice: "Tag was successfully created." }
         format.json { render :show, status: :created, location: @tag }
@@ -38,11 +39,10 @@ class TagsController < ApplicationController
     else
       respond_to do |format|
         format.html {
-          redirect_to tags_url, alert: "There are something wrong."
+          redirect_to tags_url, alert: @tag.errors.full_messages.join(", ")
         }
         format.json {
-          render json: { messages: "There are something wrong." },
-          status: :unprocessable_entity
+          render json: @tag.errors, status: :unprocessable_entity
         }
         format.turbo_stream { render :new, status: :unprocessable_entity }
       end
@@ -51,7 +51,8 @@ class TagsController < ApplicationController
 
   # PATCH/PUT /tags/1 or /tags/1.json
   def update
-    if Tags::UpdateWorkflow.new(@tag, tag_params, current_user).call
+    @tag = Tags::UpdateWorkflow.new(@tag, tag_params, current_user).call
+    if @tag.errors.empty?
       respond_to do |format|
         format.html { redirect_to tags_url, notice: "Tag was successfully updated." }
         format.json { render :show, status: :ok, location: @tag }
@@ -60,7 +61,7 @@ class TagsController < ApplicationController
     else
       respond_to do |format|
         format.html {
-          redirect_to tags_url, alert: "There are something wrong."
+          redirect_to tags_url, alert: @tag.errors.full_messages.join(", ")
         }
         format.json {
           render json: { messages: "There are something wrong." },
@@ -90,7 +91,7 @@ class TagsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_tag
-      @tag = current_user.all_tags.find(params[:id])
+      @tag = ActsAsTaggableOn::Tag.all.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

@@ -8,11 +8,23 @@
     </div>
   </div>
 
+  <div class="d-flex flex-row gap-3 w-100">
+    <%= form_with url: tags_path, method: :get, class: "w-100" do |f| %>
+      <div class="d-flex flex-row gap-3 w-100">
+        <%= f.text_field :name, value: params[:name], class: "form-control w-100", placeholder: "Search by name" %>
+        <%= f.button nil, class: "btn btn-actions" do %>
+          <i class="fa-solid fa-search"></i>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
 <% if @tags.present? %>
   <table class="table">
     <thead>
       <tr>
-        <th scope="col">
+        <th scope="col" class="ps-4">
           <%= link_to tags_path(sort: @sort), class: "fw-light" do %>
             <span class="d-flex align-items-center gap-3 fw-bold">
               Tag
@@ -31,7 +43,7 @@
     <tbody>
       <% @tags.each do |tag| %>
         <tr>
-          <td>
+          <td class="ps-4">
             <span class="fw-bold"><%= tag.name %></span>
           </td>
           <td class="text-center"><%= current_user.images_count_by_tag(tag) %></td>
@@ -67,3 +79,4 @@
     <span>No tags found</span>
   </div>
 <% end %>
+
