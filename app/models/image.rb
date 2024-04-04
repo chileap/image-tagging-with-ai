@@ -23,7 +23,7 @@ class Image < ApplicationRecord
   acts_as_taggable_on :tags
   acts_as_taggable_tenant :user_id
 
-  # validates :title, presence: true
+  validates :title, presence: true
   validates :file_data, presence: true
 
   def self.ransackable_attributes(auth_object = nil)
