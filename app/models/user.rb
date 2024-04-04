@@ -24,4 +24,13 @@ class User < ApplicationRecord
 
   has_many :images, dependent: :destroy
   acts_as_tagger
+
+  def images_count_by_tag(tag)
+    images.tagged_with(tag).count
+  end
+
+  def all_tags
+    not_used_tags = ActsAsTaggableOn::Tag.where(taggings_count: 0).pluck(:name)
+    ActsAsTaggableOn::Tag.where(name: not_used_tags.push(owned_tags.pluck(:name)).flatten.uniq)
+  end
 end

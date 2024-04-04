@@ -1,0 +1,20 @@
+
+<%= simple_form_for(@tag, url: @tag.new_record? ? tags_path : tag_path(@tag), methods: @tag.new_record? ? 'post' : 'put', html: { class: "form", data: { turbo: false } }) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.input :name, autofocus: true, placeholder: "Name" %>
+  </div>
+
+  <div class="form-inputs">
+    <%= f.simple_fields_for :taggings do |tagging| %>
+      <%= tagging.label :image_id, "Image" %>
+      <%= tagging.input :image_id, as: :select, label: "Image", collection: current_user.images.all, label: false, input_html: { class: "form-control" } %>
+    <% end %>
+  </div>
+
+  <div class="form-actions d-flex justify-content-end mt-4">
+    <%= f.button :submit, class: "btn btn-dark" %>
+  </div>
+<% end %>
