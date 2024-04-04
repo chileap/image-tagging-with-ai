@@ -1,0 +1,69 @@
+<div class="d-flex flex-column gap-3 pt-5 px-5 pb-3">
+  <div class="d-flex flex-row gap-3">
+    <h1 class="text-center fw-light">Tags</h1>
+    <div class="d-flex justify-content-end align-items-center">
+      <%= link_to new_tag_path, data: { turbo_action: 'replace', turbo_frame: 'modal' }, class: "btn btn-add rounded-circle" do %>
+        <i class="fa-solid fa-plus"></i>
+      <% end %>
+    </div>
+  </div>
+
+<% if @tags.present? %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">
+          <%= link_to tags_path(sort: @sort), class: "fw-light" do %>
+            <span class="d-flex align-items-center gap-3 fw-bold">
+              Tag
+              <% if @sort == "asc" %>
+                <i class="fa-solid fa-chevron-up"></i>
+              <% elsif @sort == "desc" %>
+                <i class="fa-solid fa-chevron-down"></i>
+              <% end %>
+            </span>
+          <% end %>
+        </th>
+        <th scope="col" class="text-center">Total Images</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tags.each do |tag| %>
+        <tr>
+          <td>
+            <span class="fw-bold"><%= tag.name %></span>
+          </td>
+          <td class="text-center"><%= current_user.images_count_by_tag(tag) %></td>
+          <td class="text-center">
+            <div class="dropdown">
+              <button class="btn btn-actions" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="fw-light me-2">Actions</span>
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <%= link_to tag_path(tag), class: "dropdown-item" do %>
+                  View
+                <% end %>
+                <%= link_to edit_tag_path(tag), data: { turbo_action: 'replace', turbo_frame: 'modal' }, class: "dropdown-item" do %>
+                  Edit
+                <% end %>
+                <%= link_to tag_path(tag), data: { turbo_confirm: "Are you sure?", turbo_method: 'delete' }, class: "dropdown-item" do %>
+                  Delete
+                <% end %>
+              </div>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="d-flex justify-content-center align-items-center py-5">
+    <%= paginate @tags, theme: 'bootstrap-5' %>
+  </div>
+<% else %>
+  <div class="d-flex justify-content-center align-items-center py-5">
+    <span>No tags found</span>
+  </div>
+<% end %>

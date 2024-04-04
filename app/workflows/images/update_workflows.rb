@@ -20,7 +20,7 @@ class Images::UpdateWorkflows
 
   def generate_image_tags
     taggings = GeminiAiClient.new.taggings(image)
-    image.tag_list.add(taggings)
+    image.user.tag(image, with: taggings, on: :tags)
     image.save!
   end
 end

@@ -1,24 +1,14 @@
 <div class="d-flex flex-column gap-3 pt-5 px-5 pb-3">
-  <div class="d-flex flex-row gap-3">
-    <h1 class="text-center fw-light">Images</h1>
-    <div class="d-flex justify-content-end align-items-center">
-      <%= link_to new_image_path, data: { turbo_action: 'replace', turbo_frame: 'modal' }, class: "btn btn-add rounded-circle" do %>
-        <i class="fa-solid fa-plus"></i>
-      <% end %>
-    </div>
-  </div>
-
-  <div class="d-flex flex-wrap gap-3">
-    <%= link_to "All (#{current_user.images.count})", images_path(tag: 'all'), class: "badge badge-tagging-search #{params[:tag].blank? || params[:tag] === 'all' ? 'badge-active': ''}" %>
-    <% @tags.each do |tag| %>
-      <%= link_to images_path(tag: tag.name), class: "badge badge-tagging-search #{params[:tag] === tag.name ? 'badge-active': ''}" do %>
-        <%= tag.name %> (<%= current_user.images_count_by_tag(tag) %>)
-      <% end %>
+  <div class="flex flex-row">
+    <%= link_to tags_path, class: "fs-2 fw-light" do %>
+      <span>
+        Tags / <%= @tag.name %>
+      </span>
     <% end %>
   </div>
 
   <div class="d-flex flex-row gap-3 w-100">
-    <%= search_form_for @q, class: "w-100" do |f| %>
+    <%= search_form_for @q, url: tag_path(@tag), method: :get, class: "w-100" do |f| %>
       <div class="d-flex flex-row gap-3 w-100">
         <%= f.search_field :title_cont, class: "form-control w-100", placeholder: "Search by name" %>
         <%= f.button nil, class: "btn btn-actions" do %>

@@ -10,12 +10,12 @@
       <ul class="navbar-nav me-auto my-2 my-lg-0">
         <% if user_signed_in? %>
           <li class="nav-item">
-            <%= link_to root_path, class: "nav-link #{active_class(root_path)}", aria_current: "page" do %>
+            <%= link_to root_path, class: "nav-link #{active_class(root_path)} #{active_class(images_path)}", aria_current: "page" do %>
               Images
             <% end %>
           </li>
           <li class="nav-item">
-            <%= link_to root_path, class: "nav-link #{active_class(root_path)}", aria_current: "page" do %>
+            <%= link_to tags_path, class: "nav-link #{active_class(tags_path)}", aria_current: "page" do %>
               Tags
             <% end %>
           </li>

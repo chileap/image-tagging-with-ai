@@ -3,13 +3,13 @@ class ImagesController < ApplicationController
 
   # GET /images or /images.json
   def index
-    @q = Image.ransack(params[:q])
+    @q = current_user.images.ransack(params[:q])
     @q.sorts = 'title asc' if @q.sorts.empty?
 
     result = @q.result(distinct: true)
-    result = result.tagged_with(params[:tag]) if params[:tag].present? && params[:tag] != 'all'
+    result = result.tagged_with(params[:tag], owned_by: current_user) if params[:tag].present? && params[:tag] != 'all'
     @images = result.page(params[:page]).per(10)
-    @tags = ActsAsTaggableOn::Tag.for_tenant(current_user.id).most_used(4)
+    @tags = current_user.owned_tags.most_used(4)
   end
 
   # GET /images/1
@@ -32,9 +32,11 @@ class ImagesController < ApplicationController
       if @image.save
         format.html { redirect_to image_url(@image), notice: "Image was successfully created." }
         format.json { render :show, status: :created, location: @image }
+        format.turbo_stream { redirect_to image_url(@image), notice: "Image was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @image.errors, status: :unprocessable_entity }
+        format.turbo_stream { render :new, status: :unprocessable_entity }
       end
     end
   end
