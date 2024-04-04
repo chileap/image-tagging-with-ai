@@ -31,9 +31,9 @@
 
         <div class="d-flex flex-column gap-3">
           <span class="fw-light">Tags:</span>
-          <div class="d-flex flex-row gap-3">
+          <div class="d-flex flex-wrap gap-3">
             <% @image.tags.each do |tag| %>
-              <span class="badge bg-dark"><%= tag.name %></span>
+              <span class="badge badge-tagging"><%= tag.name %></span>
             <% end %>
           </div>
         </div>

@@ -1,4 +1,4 @@
-<div class="pt-5 px-5 pb-3">
+<div class="d-flex flex-column gap-3 pt-5 px-5 pb-3">
   <div class="d-flex flex-row gap-3">
     <h1 class="text-center fw-light">Images</h1>
     <div class="d-flex justify-content-end align-items-center">
@@ -6,6 +6,26 @@
         <i class="fa-solid fa-plus"></i>
       <% end %>
     </div>
+  </div>
+
+  <div class="d-flex flex-wrap gap-3">
+    <%= link_to "All (#{current_user.images.count})", images_path(tag: 'all'), class: "badge badge-tagging-search #{params[:tag].blank? || params[:tag] === 'all' ? 'badge-active': ''}" %>
+    <% @tags.each do |tag| %>
+      <%= link_to images_path(tag: tag.name), class: "badge badge-tagging-search #{params[:tag] === tag.name ? 'badge-active': ''}" do %>
+        <%= tag.name %> (<%= tag.taggings_count %>)
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="d-flex flex-row gap-3 w-100">
+    <%= search_form_for @q, class: "w-100" do |f| %>
+      <div class="d-flex flex-row gap-3 w-100">
+        <%= f.search_field :title_cont, class: "form-control w-100", placeholder: "Search by name" %>
+        <%= f.button nil, class: "btn btn-actions" do %>
+          <i class="fa-solid fa-search"></i>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </div>
 
@@ -42,10 +62,12 @@
               </div>
             </div>
           </td>
-          <td>
-            <% image.tags.each do |tag| %>
-              <span class="badge bg-dark"><%= tag.name %></span>
-            <% end %>
+          <td class="w-25">
+            <div class="d-flex flex-wrap gap-2">
+              <% image.tags.each do |tag| %>
+                <span class="badge badge-tagging"><%= tag.name %></span>
+              <% end %>
+            </div>
           </td>
           <td class="text-center"><%= image.tags.count %></td>
           <td class="text-center">
@@ -73,7 +95,7 @@
   </table>
 
   <div class="d-flex justify-content-center align-items-center py-5">
-    <%= paginate @images %>
+    <%= paginate @images, theme: 'bootstrap-5' %>
   </div>
 <% else %>
   <div class="d-flex justify-content-center align-items-center py-5">

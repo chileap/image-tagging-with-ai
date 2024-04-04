@@ -7,7 +7,7 @@
 #  title      :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  user_id    :uuid             not null
+#  user_id    :uuid
 #
 # Indexes
 #
@@ -27,11 +27,11 @@ class Image < ApplicationRecord
   validates :file_data, presence: true
 
   def self.ransackable_attributes(auth_object = nil)
-    %w[title created_at]
+    %w[title created_at updated_at]
   end
 
   def self.ransackable_associations(auth_object = nil)
-    %w[user]
+    %w[user taggings]
   end
 
   def image_size
@@ -46,7 +46,7 @@ class Image < ApplicationRecord
 
   def file_extension
     return if file_data.blank?
-    file.filename.extension
+    file.metadata["filename"].split(".").last
   end
 
   def filesize

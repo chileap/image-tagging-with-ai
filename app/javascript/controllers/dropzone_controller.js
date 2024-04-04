@@ -35,6 +35,10 @@ export default class extends Controller {
   }
 
   addExistingFiles() {
+    if (!this.inputTarget.getAttribute('value')) {
+      return;
+    }
+
     const file = this.inputTarget;
     var mockFile = {
       url: file.getAttribute('value'),
@@ -51,8 +55,12 @@ export default class extends Controller {
 
   handleFormSubmit(event) {
     event.preventDefault();
-    console.log("submit");
-    this.dropZone.processQueue();
+    if (this.dropZone.getQueuedFiles().length > 0) {
+      this.dropZone.processQueue();
+    } else {
+      console.log("submitted");
+      event.target.submit();
+    }
   }
 
   bindEvents() {

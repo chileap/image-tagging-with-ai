@@ -6,11 +6,13 @@ class ImagesController < ApplicationController
     @q = Image.ransack(params[:q])
     @q.sorts = 'title asc' if @q.sorts.empty?
 
-    @images = @q.result(distinct: true).page(params[:page])
+    result = @q.result(distinct: true)
+    result = result.tagged_with(params[:tag]) if params[:tag].present? && params[:tag] != 'all'
+    @images = result.page(params[:page]).per(10)
     @tags = ActsAsTaggableOn::Tag.for_tenant(current_user.id).most_used(4)
   end
 
-  # GET /images/1 or /images/1.json
+  # GET /images/1
   def show
   end
 
@@ -25,7 +27,7 @@ class ImagesController < ApplicationController
 
   # POST /images or /images.json
   def create
-    @image = Image.new(image_params.merge(user: current_user))
+    @image = Images::CreateWorkflows.new(image_params.merge(user_id: current_user.id)).call
     respond_to do |format|
       if @image.save
         format.html { redirect_to image_url(@image), notice: "Image was successfully created." }
@@ -40,7 +42,7 @@ class ImagesController < ApplicationController
   # PATCH/PUT /images/1 or /images/1.json
   def update
     respond_to do |format|
-      if @image.update(image_params)
+      if Images::UpdateWorkflows.new(@image, image_params).call
         format.html { redirect_to image_url(@image), notice: "Image was successfully updated." }
         format.json { render :show, status: :ok, location: @image }
       else

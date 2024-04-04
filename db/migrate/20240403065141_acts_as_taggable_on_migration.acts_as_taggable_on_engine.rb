@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 
 # This migration comes from acts_as_taggable_on_engine (originally 1)
-class ActsAsTaggableOnMigration < ActiveRecord::Migration[6.0]
+class ActsAsTaggableOnMigration < ActiveRecord::Migration[7.1]
   def self.up
-    create_table ActsAsTaggableOn.tags_table do |t|
+    create_table ActsAsTaggableOn.tags_table, id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
       t.string :name
       t.timestamps
     end
 
-    create_table ActsAsTaggableOn.taggings_table do |t|
-      t.references :tag, foreign_key: { to_table: ActsAsTaggableOn.tags_table }
+    create_table ActsAsTaggableOn.taggings_table, id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+      t.references :tag, type: :uuid, foreign_key: { to_table: ActsAsTaggableOn.tags_table }
 
       # You should make sure that the column created is
       # long enough to store the required class names.
-      t.references :taggable, polymorphic: true
-      t.references :tagger, polymorphic: true
+      t.references :taggable, type: :uuid, polymorphic: true
+      t.references :tagger, type: :uuid, polymorphic: true
 
       # Limit is created to prevent MySQL error on index
       # length for MyISAM table type: http://bit.ly/vgW2Ql

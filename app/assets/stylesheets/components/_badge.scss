@@ -1,0 +1,31 @@
+.badge-tagging-search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 0px 5px 0px #00000040;
+  background: #FFFFFF;
+  color: #555;
+  font-weight: 400;
+  font-size: 16px;
+  height: 51px;
+  padding: 16px;
+  gap: 10px;
+  border-radius: 50px;
+}
+
+.badge-tagging-search.badge-active {
+  font-weight: 700;
+}
+
+.badge-tagging {
+  padding: 4px 8px 4px 8px;
+  gap: 4px;
+  border-radius: 4px;
+  background: #F3F4F6;
+  color: #333333;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19.36px;
+  text-align: left;
+}

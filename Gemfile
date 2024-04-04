@@ -81,3 +81,6 @@ gem "acts-as-taggable-on", "~> 10.0"
 
 gem "ransack"
 gem "kaminari"
+gem "bootstrap5-kaminari-views"
+
+gem "gemini-ai", "~> 3.2"

@@ -11,6 +11,7 @@ $fa-font-path: ".";
 
 @import 'global';
 @import 'devise';
-@import 'button';
-@import 'table';
+@import 'components/button';
+@import 'components/table';
 @import 'components/form';
+@import 'components/badge';
