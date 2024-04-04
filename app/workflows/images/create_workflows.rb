@@ -7,7 +7,9 @@ class Images::CreateWorkflows
 
   def call
     create_image
-    generate_image_tags
+    if ENV["GEMINI_AI_API_KEY"].present? && image_params[:file].present?
+      generate_image_tags
+    end
     @image
   end
 

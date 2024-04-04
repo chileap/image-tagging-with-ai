@@ -8,7 +8,9 @@ class Images::UpdateWorkflows
 
   def call
     update_image
-    generate_image_tags if image_params[:file].present? || image.tag_list.empty?
+    if ENV["GEMINI_AI_API_KEY"].present? && (image_params[:file].present? || image.tag_list.empty?)
+      generate_image_tags
+    end
     image
   end
 
