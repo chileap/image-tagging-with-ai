@@ -73,7 +73,13 @@ class TagsController < ApplicationController
 
   # DELETE /tags/1 or /tags/1.json
   def destroy
-    @tag.destroy!
+    @tagging = @tag.taggings
+    if @tagging.present?
+      @tagging.destroy_all
+    end
+    if @tag.taggings.empty?
+      @tag.destroy!
+    end
 
     respond_to do |format|
       format.html { redirect_to tags_url, notice: "Tag was successfully destroyed." }
