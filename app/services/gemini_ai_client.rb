@@ -29,13 +29,20 @@ Other instructions
   end
 
   def taggings(image)
+    image_file = nil
+    if Rails.env.development?
+      image_file = File.read(image.file.to_io)
+    else
+      image_file = image.file.download
+    end
+
     result = @client.stream_generate_content(
       { contents: [
         { role: 'user', parts: [
           { text: PROMPT },
           { inline_data: {
             mime_type: image.file.metadata['mime_type'],
-            data: Base64.strict_encode64(File.read(image.file.to_io))
+            data: Base64.strict_encode64(File.read(image_file))
           } }
         ] }
       ] }
