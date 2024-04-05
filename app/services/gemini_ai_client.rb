@@ -48,7 +48,7 @@ Other instructions
       ] }
     )
     response = format_response(result)
-    parse_response(response).values.flatten!
+    handle_response(response)
   end
 
   private
@@ -64,5 +64,9 @@ Other instructions
 
   def parse_response(response)
     JSON.parse response.split("\n").join.split("```json").join.split("```").join
+  end
+
+  def handle_response(response)
+    parse_response(response).values.flatten!.filter { |r| r != 'nil' || r != 'null' || r != nil }
   end
 end
