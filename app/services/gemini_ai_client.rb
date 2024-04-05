@@ -63,6 +63,8 @@ Other instructions
   end
 
   def parse_response(response)
+    Rails.logger.info response
+    return response if response.class == Hash || response.class == Array
     JSON.parse response.split("\n").join.split("```json").join.split("```").join
   end
 
