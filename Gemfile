@@ -75,7 +75,7 @@ gem "simple_form", "~> 5.3"
 
 # Use Shrine for file uploads to S3
 gem "shrine", "~> 3.5"
-gem "aws-sdk-s3", "~> 1.146"
+gem "aws-sdk-s3", "~> 1.155"
 
 gem "acts-as-taggable-on", "~> 10.0"
 
