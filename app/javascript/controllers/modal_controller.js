@@ -1,6 +1,4 @@
-import {
-  Modal
-} from "bootstrap"
+import { Modal } from 'flowbite';
 import {
   Controller
 } from "@hotwired/stimulus"
@@ -12,6 +10,7 @@ export default class extends Controller {
       backdrop.remove();
     }
     this.modal = new Modal(this.element);
+    console.log(this.modal);
     this.modal.show();
     this.element.addEventListener('hidden.bs.modal', (event) => {
       this.element.remove();
