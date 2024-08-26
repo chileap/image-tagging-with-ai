@@ -77,7 +77,7 @@ gem "simple_form", "~> 5.3"
 gem "shrine", "~> 3.6"
 gem "aws-sdk-s3", "~> 1.146"
 
-gem "acts-as-taggable-on", "~> 10.0"
+gem "acts-as-taggable-on", "~> 11.0"
 
 gem "ransack"
 gem "kaminari"
